@@ -8,6 +8,16 @@ The Parent Object, which you must always create to use this API is the RSM Objec
 
 For specific usage examples, please check out the `*.test.js` files.
 
+# Installation
+
+`yarn add git+https://github.com/Redsauce/rsm-node-api`
+
+or 
+
+`npm install git+https://github.com/Redsauce/rsm-node-api`
+
+then you can import as `import RSM from "rsm-node-api"`
+
 # API
 
 ## new RSM(token, host)
