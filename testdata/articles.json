@@ -1,0 +1,300 @@
+{
+  "article list": {
+      "rsm": [
+        {
+          "ID": "1337",
+          "1467": "Test Title",
+          "1468": "Some content",
+          "1469": "2020-05-08",
+          "1476": "first_post",
+          "1474trs": "Automation;Webdriverio",
+          "1472trs": "Kenan;Pablo",
+          "1474": "5,7",
+          "1337": "ignore me please",
+          "1488": "No",
+          "1489": "Title tag test",
+          "1490": "Meta Description Test",
+          "1513": "123",
+          "1514": "456"
+        },
+        {
+          "ID": "1338",
+          "1467": "Test Title 1",
+          "1468": "Some content 1",
+          "1469": "2020-06-08",
+          "1476": "second_post",
+          "1474trs": "Automation;Webdriverio",
+          "1472trs": "Kenan;Pablo",
+          "1488": "Sí",
+          "1489": "Title tag test 2",
+          "1490": "Meta Description Test 2",
+          "1513": "124",
+          "1514": "457"
+        }
+      ],
+      "expected response": [
+        {
+          "ID": "1338",
+          "Title": "Test Title 1",
+          "Content": "Some content 1",
+          "Date": "2020-06-08",
+          "Tags": ["Automation","Webdriverio"],
+          "Authors": ["Kenan","Pablo"],
+          "Friendly_url": "second_post",
+          "Title_tag": "Title tag test 2",
+          "Meta_description": "Meta Description Test 2",
+          "Header_photo": "124",
+          "Cover_photo": "457"
+        },
+        {
+          "ID": "1337",
+          "Title": "Test Title",
+          "Content": "Some content",
+          "Date": "2020-05-08",
+          "Tags": ["Automation","Webdriverio"],
+          "Authors": ["Kenan","Pablo"],
+          "Friendly_url": "first_post",
+          "Title_tag": "Title tag test",
+          "Meta_description": "Meta Description Test",
+          "Header_photo": "123",
+          "Cover_photo": "456"
+        }
+      ],
+      "production response": [
+        {
+          "ID": "1338",
+          "Title": "Test Title 1",
+          "Content": "Some content 1",
+          "Date": "2020-06-08",
+          "Tags": ["Automation","Webdriverio"],
+          "Authors": ["Kenan","Pablo"],
+          "Friendly_url": "second_post",
+          "Title_tag": "Title tag test 2",
+          "Meta_description": "Meta Description Test 2",
+          "Header_photo": "124",
+          "Cover_photo": "457"
+        }
+      ]
+    },
+    "bad article list": {
+        "rsm": [
+          {
+            "ID": "1337",
+            "1467": "Test Title",
+            "1468": "Some content",
+            "1469": "2020-04-08",
+            "1476": "first_post",
+            "1474trs": "Automation;Webdriverio",
+            "1472trs": "Kenan;Pablo",
+            "1489": "Title tag test",
+            "1490": "Meta Description Test",
+            "1513": "123",
+            "1514": "456"
+          },
+          {
+            "ID": "1338",
+            "1467": "Test Title 1",
+            "1469": "2020-05-08",
+            "1474trs": "Automation;Webdriverio",
+            "1476": "second_post"
+          }
+        ],
+        "expected response": [
+          {
+            "ID": "1337",
+            "Title": "Test Title",
+            "Content": "Some content",
+            "Date": "2020-04-08",
+            "Tags": ["Automation","Webdriverio"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "first_post",
+            "Title_tag": "Title tag test",
+            "Meta_description": "Meta Description Test",
+            "Header_photo": "123",
+            "Cover_photo": "456"
+          }
+        ]
+    },
+    "single article": {
+        "rsm": [
+          {
+            "ID": "1337",
+            "1467": "Test Title",
+            "1468": "Some content",
+            "1469": "2020-04-08",
+            "1476": "first_post",
+            "1474trs": "Automation;Webdriverio",
+            "1472trs": "Kenan;Pablo",
+            "1488": "No",
+            "1489": "Title tag test",
+            "1490": "Meta Description Test",
+            "1513": "123",
+            "1514": "456"
+          }
+        ],
+        "expected response":
+          {
+            "ID": "1337",
+            "Title": "Test Title",
+            "Content": "Some content",
+            "Date": "2020-04-08",
+            "Tags": ["Automation","Webdriverio"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "first_post",
+            "Title_tag": "Title tag test",
+            "Meta_description": "Meta Description Test",
+            "Header_photo": "123",
+            "Cover_photo": "456"
+          }
+      },
+      "search articles single result": {
+        "rsm": [
+          {
+            "ID": "1337",
+            "1467": "Kim Lip",
+            "1468": "Eclipse",
+            "1469": "2017-05-22",
+            "1476": "stan_loona",
+            "1474trs": "Automation;Webdriverio",
+            "1472trs": "Kenan;Pablo",
+            "1488": "Sí",
+            "1489": "Title tag test",
+            "1490": "Meta Description Test",
+            "1513": "123",
+            "1514": "456"
+          },
+          {
+            "ID": "1338",
+            "1467": "Olivia Hye",
+            "1468": "Egoist",
+            "1469": "2018-03-29",
+            "1476": "stan_loona2",
+            "1474trs": "Ruby;Webdriverio;Web Automation",
+            "1472trs": "Kenan;Pablo",
+            "1488": "No",
+            "1489": "Title tag test 2",
+            "1490": "Meta Description Test 2",
+            "1513": "124",
+            "1514": "457"
+          }
+        ],
+        "expected response": [
+          {
+            "ID": "1337",
+            "Title": "Kim Lip",
+            "Content": "Eclipse",
+            "Date": "2017-05-22",
+            "Tags": ["Automation","Webdriverio"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "stan_loona",
+            "Title_tag": "Title tag test",
+            "Meta_description": "Meta Description Test",
+            "Header_photo": "123",
+            "Cover_photo": "456"
+          }
+        ]
+      },
+      "show related posts": {
+        "rsm": [
+          {
+            "ID": "1337",
+            "1467": "Kim Lip",
+            "1468": "Eclipse",
+            "1469": "2017-05-22",
+            "1476": "related_first",
+            "1474trs": "Automation;Webdriverio",
+            "1472trs": "Kenan;Pablo",
+            "1488": "No",
+            "1489": "Title tag test 1",
+            "1490": "Meta Description Test 1",
+            "1513": "125",
+            "1514": "457"
+          },
+          {
+            "ID": "1338",
+            "1467": "Kim Lip",
+            "1468": "Eclipse",
+            "1469": "2017-05-22",
+            "1476": "related_second",
+            "1474trs": "Automation;Webdriverio",
+            "1472trs": "Kenan;Pablo",
+            "1488": "No",
+            "1489": "Title tag test 2",
+            "1490": "Meta Description Test 2",
+            "1513": "123",
+            "1514": "456"
+          },
+          {
+            "ID": "1339",
+            "1467": "Kim Lip",
+            "1468": "Eclipse",
+            "1469": "2017-05-22",
+            "1476": "related_third",
+            "1474trs": "Automation",
+            "1472trs": "Kenan;Pablo",
+            "1488": "Sí",
+            "1489": "Title tag test",
+            "1490": "Meta Description Test",
+            "1513": "124",
+            "1514": "457"
+          },
+          {
+            "ID": "1340",
+            "1467": "Kim Lip",
+            "1468": "Eclipse",
+            "1469": "2017-05-22",
+            "1476": "related_fourth",
+            "1474trs": "",
+            "1472trs": "Kenan;Pablo",
+            "1488": "No",
+            "1489": "Title tag test 3",
+            "1490": "Meta Description Test 3",
+            "1513": "126",
+            "1514": "458"
+          }
+        ],
+        "expected response": [
+          {
+            "ID": "1338",
+            "Title": "Kim Lip",
+            "Content": "Eclipse",
+            "Date": "2017-05-22",
+            "Tags": ["Automation", "Webdriverio"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "related_second",
+            "Title_tag": "Title tag test 2",
+            "Meta_description": "Meta Description Test 2",
+            "Header_photo": "123",
+            "Cover_photo": "456"
+          },
+          {
+            "ID": "1339",
+            "Title": "Kim Lip",
+            "Content": "Eclipse",
+            "Date": "2017-05-22",
+            "Tags": ["Automation"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "related_third",
+            "Title_tag": "Title tag test",
+            "Meta_description": "Meta Description Test",
+            "Header_photo": "124",
+            "Cover_photo": "457"
+          }
+        ],
+        "production response": [
+          {
+            "ID": "1339",
+            "Title": "Kim Lip",
+            "Content": "Eclipse",
+            "Date": "2017-05-22",
+            "Tags": ["Automation"],
+            "Authors": ["Kenan","Pablo"],
+            "Friendly_url": "related_third",
+            "Title_tag": "Title tag test",
+            "Meta_description": "Meta Description Test",
+            "Header_photo": "124",
+            "Cover_photo": "457"
+          }
+        ]
+      }
+}
