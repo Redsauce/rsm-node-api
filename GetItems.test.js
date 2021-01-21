@@ -19,7 +19,7 @@ fetch.mockImplementation(fake_fetch);
 
 describe("RSM GetItems", () => {
   it("fetches correctly", () => {
-    getItems("fake api token", "type")
+    getItems("fake api token", "host", "type")
       .properties({
         "Potato": 1337,
         "The Universe": 42,
@@ -28,7 +28,7 @@ describe("RSM GetItems", () => {
       ])
       .fetch();
 
-    expect(fetch).toHaveBeenLastCalledWith(RSM_GETITEMS_PATH, {
+    expect(fetch).toHaveBeenLastCalledWith("host", RSM_GETITEMS_PATH, {
       "RStoken": "fake api token",
       "propertyIDs": "1337,42",
       "filterRules": "1337;JXBvdGF0byU=;LIKE",

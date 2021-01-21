@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe("RSM DeleteItem", () => {
   it("should delete an item", async () => {
-    const scope = nock("https://rsm1.redsauce.net")
+    const scope = nock("https://host")
       .post(RSM_DELETEITEM_PATH, (body) => {
         return matchForm(body, {
           RStoken: "fakeapi",
@@ -26,7 +26,7 @@ describe("RSM DeleteItem", () => {
         })
       })
       .reply(200, fakersm([{result: "OK"}]));
-    const response = await deleteItem("fakeapi", "333")
+    const response = await deleteItem("fakeapi", "https://host", "333")
       .delete("2");
 
     expect(scope.isDone()).toBe(true);
@@ -34,7 +34,7 @@ describe("RSM DeleteItem", () => {
   });
 
   it("should return permission denied", async () => {
-    const scope = nock("https://rsm1.redsauce.net")
+    const scope = nock("https://host")
       .post(RSM_DELETEITEM_PATH, (body) => {
         return matchForm(body, {
           RStoken: "fakeapi",
@@ -45,14 +45,14 @@ describe("RSM DeleteItem", () => {
       .reply(200, fakersm([{result: "NOK"}]));
 
     await expect(
-      deleteItem("fakeapi", "333")
+      deleteItem("fakeapi", "https://host", "333")
         .delete("2")
     ).rejects.toEqual("NOK");
     expect(scope.isDone()).toBe(true);
   });
 
   it("should return connection failure", async () => {
-    const scope = nock("https://rsm1.redsauce.net")
+    const scope = nock("https://host")
       .post(RSM_DELETEITEM_PATH, (body) => {
         return matchForm(body, {
           RStoken: "fakeapi",
@@ -63,7 +63,7 @@ describe("RSM DeleteItem", () => {
       .replyWithError("Request failed!");
 
     await expect(
-      deleteItem("fakeapi", "1234")
+      deleteItem("fakeapi", "https://host", "1234")
         .delete("4321")
     ).rejects.toThrow("Request failed!");
     expect(scope.isDone()).toBe(true);

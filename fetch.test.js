@@ -23,7 +23,7 @@ describe("RSM Fetch", () => {
         && body.includes('name="Data"\r\n\r\nEinstein\r\n')
     }).reply(200, "<p></p>");
 
-    await fetch("/target", {"Test": "Albert", "Data": "Einstein"});
+    await fetch(RSM_HOST, "/target", {"Test": "Albert", "Data": "Einstein"});
 
     expect(scope.isDone()).toBe(true);
   });
@@ -34,7 +34,7 @@ describe("RSM Fetch", () => {
       .post("/target")
       .reply(200, "<p id='main'>Hi, I'm<br>Tuna Man</p>");
 
-    const res = await fetch("/target", {});
+    const res = await fetch(RSM_HOST, "/target", {});
     expect(res.querySelector("#main").textContent)
       .toEqual("Hi, I'm\nTuna Man")
   });

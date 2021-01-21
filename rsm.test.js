@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-const RSM = require("./index");
+const {RSM} = require("./index");
 const fakersm = require("./fake").http_request;
 const testdata = require("./testdata/articles");
 

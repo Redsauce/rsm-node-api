@@ -6,14 +6,15 @@ const GetPicture = require("./GetPicture");
 const UpdateItem = require("./UpdateItem");
 const fake = require("./fake");
 
-function RSM(api_token) {
+function RSM(api_token, host) {
   this.token = api_token;
-  this.createItems = () => CreateItems(this.token);
-  this.deleteItem = (type) => DeleteItem(this.token, type);
-  this.getItems = () => GetItems(this.token);
-  this.getItem = (type) => GetItem(this.token, type);
-  this.getPicture = (id) => GetPicture(this.token, id);
-  this.updateItem = (type) => UpdateItem(this.token, type);
+  this.host = host;
+  this.createItems = () => CreateItems(this.token, this.host);
+  this.deleteItem = (type) => DeleteItem(this.token, this.host, type);
+  this.getItems = () => GetItems(this.token, this.host);
+  this.getItem = (type) => GetItem(this.token, this.host, type);
+  this.getPicture = (id) => GetPicture(this.token, this.host, id);
+  this.updateItem = (type) => UpdateItem(this.token, this.host, type);
 }
 
 module.exports = {

@@ -14,9 +14,9 @@ function RSM_Encode_Filters(filters) {
   ).join(",");
 }
 
-function RSM_GetItems(path, request, props) {
+function RSM_GetItems(host, path, request, props) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(path, request).then(function (response) {
+    RSM_Fetch(host, path, request).then(function (response) {
       resolve(RSM_ParseResponse(props, response));
     }, function (error) {
       reject(error);
@@ -31,7 +31,7 @@ function formatProperties(props){
     .join(",");
 }
 
-function RSM_GetItemsBuilder(api_token) {
+function RSM_GetItemsBuilder(api_token, host) {
   return {
     request: {
       RStoken: api_token,
@@ -40,6 +40,7 @@ function RSM_GetItemsBuilder(api_token) {
       filterJoining: "AND",
       extfilters: undefined,
     },
+    host,
     path: RSM_GETITEMS_PATH,
     properties: function (props) {
       let new_request = _.cloneDeep(this);
@@ -73,7 +74,7 @@ function RSM_GetItemsBuilder(api_token) {
       if (request.filterRules) {
         request.filterJoining = this.request.filterJoining;
       }
-      return RSM_GetItems(this.path, request, _.invert(this.request.properties));
+      return RSM_GetItems(this.host, this.path, request, _.invert(this.request.properties));
     }
   }
 }

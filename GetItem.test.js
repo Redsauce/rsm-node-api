@@ -19,9 +19,9 @@ fetch.mockImplementation(fake_fetch);
 
 describe("RSM GetItem", () => {
   it("fetches correctly", () => {
-    getItem("fakeapi", "type").fetch(3);
+    getItem("fakeapi", "host", "type").fetch(3);
 
-    expect(fetch).toHaveBeenLastCalledWith(RSM_GETITEM_PATH, {
+    expect(fetch).toHaveBeenLastCalledWith("host", RSM_GETITEM_PATH, {
       "RStoken": "fakeapi",
       "itemTypeID": "type",
       "itemID": 3,

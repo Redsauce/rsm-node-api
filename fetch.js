@@ -2,9 +2,9 @@ const axios = require("axios");
 const FormData = require("form-data");
 const {JSDOM} = require("jsdom");
 
-const RSM_HOST = "https://rsm1.redsauce.net";
+const RSM_DEFAULT_HOST = "https://rsm1.redsauce.net";
 
-async function RSM_Fetch(path, data) {
+async function RSM_Fetch(host = RSM_DEFAULT_HOST, path, data) {
   let form_data = new FormData();
   Object.entries(data).forEach(([entry, value]) => {
     if ((typeof value) !== "undefined") {
@@ -13,7 +13,7 @@ async function RSM_Fetch(path, data) {
   });
   const config = {
     method: "post",
-    url: RSM_HOST + path,
+    url: host + path,
     data: form_data,
     headers: form_data.getHeaders(),
   }

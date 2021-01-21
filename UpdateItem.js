@@ -6,9 +6,9 @@ const RSM_ParseResponse = require("./parse_response");
 
 const RSM_UPDATEITEM_PATH = "/AppController/commands_RSM/api/api_updateItem.php";
 
-function RSM_UpdateItem(path, request) {
+function RSM_UpdateItem(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(path, request).then(function (response) {
+    RSM_Fetch(host, path, request).then(function (response) {
       const result = RSM_ParseResponse({
         "result": "status"
       },response)[0];
@@ -28,18 +28,19 @@ function buildProps(props) {
     .map(([prop, value]) => `${prop}:${encode64(value)}`).join(";")
 }
 
-function RSM_UpdateItemBuilder(api_token, itemType) {
+function RSM_UpdateItemBuilder(api_token, host, itemType) {
   return {
     request: {
       RStoken: api_token,
       itemTypeID: itemType,
     },
+    host,
     path: RSM_UPDATEITEM_PATH,
     update: function (id, newProps) {
       let new_request = _.clone(this.request);
       new_request.RSitemID = id;
       new_request.RSdata = buildProps(newProps);
-      return RSM_UpdateItem(this.path, new_request);
+      return RSM_UpdateItem(this.host, this.path, new_request);
     }
   }
 }

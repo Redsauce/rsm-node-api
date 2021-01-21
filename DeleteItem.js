@@ -5,9 +5,9 @@ const RSM_ParseResponse = require("./parse_response");
 
 const RSM_DELETEITEM_PATH = "/AppController/commands_RSM/api/api_deleteItem.php";
 
-function RSM_DeleteItem(path, request) {
+function RSM_DeleteItem(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(path, request).then(function (response) {
+    RSM_Fetch(host, path, request).then(function (response) {
       const result = RSM_ParseResponse({
         "result": "status"
       },response)[0];
@@ -22,17 +22,18 @@ function RSM_DeleteItem(path, request) {
   });
 }
 
-function RSM_DeleteItemBuilder(api_token, itemType) {
+function RSM_DeleteItemBuilder(api_token, host, itemType) {
   return {
     request: {
       RStoken: api_token,
       itemTypeID: itemType,
     },
+    host,
     path: RSM_DELETEITEM_PATH,
     delete: function (id) {
       let new_request = _.clone(this.request);
       new_request.itemID = id;
-      return RSM_DeleteItem(this.path, new_request);
+      return RSM_DeleteItem(this.host, this.path, new_request);
     }
   }
 }

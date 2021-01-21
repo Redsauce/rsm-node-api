@@ -6,9 +6,9 @@ const RSM_ParseResponse = require("./parse_response");
 
 const RSM_CREATEITEMS_PATH = "/AppController/commands_RSM/api/api_createItem.php";
 
-function RSM_CreateItems(path, request) {
+function RSM_CreateItems(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(path, request).then(function (response) {
+    RSM_Fetch(host, path, request).then(function (response) {
       const result = RSM_ParseResponse({
         "itemID": "itemID",
         "result": "status"
@@ -36,12 +36,13 @@ function buildRequest(req) {
   }
 }
 
-function RSM_CreateItemsBuilder(api_token) {
+function RSM_CreateItemsBuilder(api_token, host) {
   return {
     request: {
       RStoken: api_token,
       items: [],
     },
+    host,
     path: RSM_CREATEITEMS_PATH,
     item: function (itemProperties) {
       let new_request = _.cloneDeep(this);
@@ -49,7 +50,7 @@ function RSM_CreateItemsBuilder(api_token) {
       return new_request;
     },
     send: function () {
-      return RSM_CreateItems(this.path, buildRequest(this.request));
+      return RSM_CreateItems(this.host, this.path, buildRequest(this.request));
     }
   }
 }
