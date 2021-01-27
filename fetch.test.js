@@ -35,7 +35,7 @@ describe("RSM Fetch", () => {
       .reply(200, "<p id='main'>Hi, I'm<br>Tuna Man</p>");
 
     const res = await fetch(RSM_HOST, "/target", {});
-    expect(res.querySelector("#main").textContent)
+    expect(res.getElementById("main").textContent)
       .toEqual("Hi, I'm\nTuna Man")
   });
 });

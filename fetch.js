@@ -1,6 +1,6 @@
 const axios = require("axios");
 const FormData = require("form-data");
-const {JSDOM} = require("jsdom");
+const {DOMParser} = require("xmldom");
 
 const RSM_DEFAULT_HOST = "https://rsm1.redsauce.net";
 
@@ -19,8 +19,8 @@ async function RSM_Fetch(host = RSM_DEFAULT_HOST, path, data) {
   }
   const response = await axios(config);
   const XML = response.data.replace(RegExp("<br>","g"), "\n");
-  const dom = new JSDOM(XML, { contentType: "text/xml" });
-  return dom.window.document;
+  const dom = new DOMParser().parseFromString(XML);
+  return dom;
 }
 
 module.exports = RSM_Fetch;
