@@ -15,6 +15,8 @@ function RSM_ParseResponse(property_names, response) {
       } else {
         if (column.getAttribute("name") in property_names) {
           return [property_names[column.getAttribute("name")], column.childNodes[0].data]
+        } else if (Object.keys(property_names).length === 0) {
+          return [column.getAttribute("name"), column.childNodes[0].data]
         } else {
           return null
         }

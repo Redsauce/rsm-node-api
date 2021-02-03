@@ -1,8 +1,8 @@
-/**
- * @jest-environment node
- */
-
 const nock = require("nock");
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
+const expect = chai.expect;
 
 const deleteItem = require("./DeleteItem");
 const fakersm = require("./fake").response;
@@ -29,8 +29,8 @@ describe("RSM DeleteItem", () => {
     const response = await deleteItem("fakeapi", "https://host", "333")
       .delete("2");
 
-    expect(scope.isDone()).toBe(true);
-    expect(response).toEqual("OK");
+    expect(scope.isDone()).to.be.true;
+    expect(response).to.equal("OK");
   });
 
   it("should return permission denied", async () => {
@@ -47,8 +47,8 @@ describe("RSM DeleteItem", () => {
     await expect(
       deleteItem("fakeapi", "https://host", "333")
         .delete("2")
-    ).rejects.toEqual("NOK");
-    expect(scope.isDone()).toBe(true);
+    ).to.be.rejectedWith("NOK");
+    expect(scope.isDone()).to.be.true;
   });
 
   it("should return connection failure", async () => {
@@ -65,7 +65,7 @@ describe("RSM DeleteItem", () => {
     await expect(
       deleteItem("fakeapi", "https://host", "1234")
         .delete("4321")
-    ).rejects.toThrow("Request failed!");
-    expect(scope.isDone()).toBe(true);
+    ).to.be.rejectedWith("Request failed!");
+    expect(scope.isDone()).to.be.true;
   });
 });

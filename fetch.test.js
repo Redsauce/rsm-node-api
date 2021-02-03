@@ -1,18 +1,15 @@
-/**
- * @jest-environment node
- */
-
-const fetch = require("./fetch");
+const {fetch} = require("./fetch");
 const nock = require("nock");
 const {checkIfNockIsUsed} = require('./support');
+const expect = require("chai").expect;
 
-const RSM_HOST = "https://rsm1.redsauce.net";
-
-afterEach(() => {
-  checkIfNockIsUsed(nock);
-});
+const RSM_HOST = "http://localhost";
 
 describe("RSM Fetch", () => {
+  afterEach(() => {
+    checkIfNockIsUsed(nock);
+  });
+
   it("should send correct request", async () => {
     const scope = nock(RSM_HOST, {
       reqheaders: {
@@ -25,17 +22,16 @@ describe("RSM Fetch", () => {
 
     await fetch(RSM_HOST, "/target", {"Test": "Albert", "Data": "Einstein"});
 
-    expect(scope.isDone()).toBe(true);
+    expect(scope.isDone()).to.be.true;
   });
 
 
   it("should parse a DOM removing <br> tags", async () => {
-    nock(RSM_HOST)
-      .post("/target")
+    nock(RSM_HOST).post("/target")
       .reply(200, "<p id='main'>Hi, I'm<br>Tuna Man</p>");
 
     const res = await fetch(RSM_HOST, "/target", {});
     expect(res.getElementById("main").textContent)
-      .toEqual("Hi, I'm\nTuna Man")
+      .to.equal("Hi, I'm\nTuna Man")
   });
 });

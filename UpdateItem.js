@@ -1,7 +1,7 @@
 const _ = require("lodash");
 
 const encode64 = require("./encode64");
-const RSM_Fetch = require("./fetch");
+const RSM_Fetch = require("./fetch").fetch;
 const RSM_ParseResponse = require("./parse_response");
 
 const RSM_UPDATEITEM_PATH = "/AppController/commands_RSM/api/api_updateItem.php";

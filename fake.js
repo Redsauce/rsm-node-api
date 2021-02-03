@@ -1,5 +1,3 @@
-const nock = require("nock");
-
 function build_rsm_column([name, value]) {
   return `<column name="${name}"><![CDATA[${value}]]></column>`
 }
@@ -16,6 +14,7 @@ function build_fake_rsm_response(json) {
 }
 
 function fake_rsm(api, statusCode, data, method){
+  const nock = require("nock"); // only required if used
   if ((typeof method) === "undefined") {
     method = "POST";
   }

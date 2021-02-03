@@ -1,7 +1,4 @@
-/**
- * @jest-environment node
- */
-
+const expect = require("chai").expect;
 const {RSM} = require("./index");
 const fakersm = require("./fake").http_request;
 const testdata = require("./testdata/articles");
@@ -26,8 +23,8 @@ describe("RSM", () => {
     }).fetch();
 
     const content = res[0]["Content"];
-    expect(content).toEqual(testcase["expected response"][1]["Content"]);
-    expect(res[0]["ID"]).toEqual(testcase["expected response"][1]["ID"]);
+    expect(content).to.equal(testcase["expected response"][1]["Content"]);
+    expect(res[0]["ID"]).to.equal(testcase["expected response"][1]["ID"]);
   });
 
   it("can reuse a call", async () => {
@@ -44,11 +41,11 @@ describe("RSM", () => {
     });
 
     const res = await all_articles.fetch();
-    expect(res[1]["ID"]).toEqual(testcase["expected response"][0]["ID"]);
+    expect(res[1]["ID"]).to.equal(testcase["expected response"][0]["ID"]);
 
     fakersm("getItems", 200, testcase["rsm"]);
     const res2 = await all_articles.fetch();
-    expect(res2[1]["ID"]).toEqual(testcase["expected response"][0]["ID"]);
+    expect(res2[1]["ID"]).to.equal(testcase["expected response"][0]["ID"]);
   });
 
   it("can take filters", async () => {
@@ -68,6 +65,6 @@ describe("RSM", () => {
       {property: 1467, mode: "LIKE", value: "%potato%"},
       {property: 1474, mode: "IN", value: "potato"},
     ], "OR").fetch();
-    expect(res[1]["ID"]).toEqual(testcase["expected response"][0]["ID"]);
+    expect(res[1]["ID"]).to.equal(testcase["expected response"][0]["ID"]);
   });
 });

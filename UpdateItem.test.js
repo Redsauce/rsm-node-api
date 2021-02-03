@@ -1,7 +1,4 @@
-/**
- * @jest-environment node
- */
-
+const expect = require("chai").expect;
 const nock = require("nock");
 const {checkIfNockIsUsed} = require('./support');
 
@@ -33,8 +30,8 @@ describe("RSM UpdateItem", () => {
         "83": "otherthing"
       });
 
-    expect(scope.isDone()).toBe(true);
-    expect(response).toEqual("OK");
+    expect(scope.isDone()).to.be.true;
+    expect(response).to.equal("OK");
   });
 
   it("should return permission denied", async () => {
@@ -52,8 +49,8 @@ describe("RSM UpdateItem", () => {
       .update("2", {
         "54": "something",
         "83": "otherthing"
-      })).rejects.toEqual("NOK");
-    expect(scope.isDone()).toBe(true);
+      })).to.be.rejectedWith("NOK");
+    expect(scope.isDone()).to.be.true;
   });
 
   it("should return connection failure", async () => {
@@ -70,7 +67,7 @@ describe("RSM UpdateItem", () => {
     await expect(updateItem("token!")
       .update("1337", {
         "22": "potatoes",
-      })).rejects.toThrow("Request failed!");
-    expect(scope.isDone()).toBe(true);
+      })).to.be.rejectedWith("Request failed!");
+    expect(scope.isDone()).to.be.true;
   });
 });
