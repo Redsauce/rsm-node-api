@@ -22,11 +22,9 @@ async function RSM_Fetch(host = RSM_DEFAULT_HOST, path, data) {
 
 function buildHeaders(form_data) {
   if (isNode) {
-    console.log("NODE!")
     return form_data.getHeaders();
   } else if (isBrowser) {
-    console.log("BROWSER!")
-    return {"Content-Type": "multipart/form-data"};
+    return {"content-type": "multipart/form-data"};
   }
   throw new Error("Not Node or Browser");
 }

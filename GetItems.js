@@ -1,6 +1,6 @@
 const encode64 = require("./encode64");
 const _ = require("lodash");
-const RSM_Fetch = require("./fetch").fetch;
+const RSM_Fetch = require("./fetch");
 const RSM_ParseResponse = require("./parse_response");
 
 const RSM_GETITEMS_PATH = "/AppController/commands_RSM/api/api_getItems.php";
@@ -16,7 +16,7 @@ function RSM_Encode_Filters(filters) {
 
 function RSM_GetItems(host, path, request, props) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(host, path, request).then(function (response) {
+    RSM_Fetch.fetch(host, path, request).then(function (response) {
       resolve(RSM_ParseResponse(props, response));
     }, function (error) {
       reject(error);

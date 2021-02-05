@@ -1,33 +1,26 @@
 const expect = require("chai").expect;
-const nock = require("nock");
+const sinon = require("sinon");
+const {DOMParser} = require("xmldom");
 
+const fetch = require("./fetch");
 const encode64 = require("./encode64");
 const fakersm = require("./fake").response;
-const matchForm = require("./testMatchForm");
-const {checkIfNockIsUsed} = require('./support');
 
 const getItems = require("./GetItems");
 
 const RSM_GETITEMS_PATH = "/AppController/commands_RSM/api/api_getItems.php";
-const RSM_HOST = "https://rsm1.redsauce.net"
-
-afterEach(() => {
-  checkIfNockIsUsed(nock);
-});
+const RSM_HOST = "http://localhost"
 
 describe("RSM GetItems", () => {
+
+  let sandbox = sinon.createSandbox();
+  afterEach(() => sandbox.restore());
+
   it("fetches correctly", async () => {
-    const scope = nock(RSM_HOST)
-      .post(RSM_GETITEMS_PATH, (body) => {
-        return matchForm(body, {
-          RStoken: "fake api token",
-          propertyIDs: "1337,42",
-          filterRules: "1337;JXBvdGF0byU=;LIKE",
-          filterJoining: "AND",
-        })
-      })
-      .reply(200, fakersm([{"1337": "Nice", "42": "wat"}]));
-          
+    const stub = sandbox.stub(fetch, "fetch")
+      .resolves(new DOMParser()
+        .parseFromString(
+          fakersm([{"1337": "Nice", "42": "wat"}])));
 
     const response = await getItems("fake api token", RSM_HOST)
       .properties({
@@ -38,7 +31,13 @@ describe("RSM GetItems", () => {
       ])
       .fetch();
 
-    expect(scope.isDone()).to.be.true;
     expect(response).to.deep.equal([{"Potato": "Nice", "The Universe": "wat"}]);
+    expect(stub.calledOnceWithExactly(RSM_HOST, RSM_GETITEMS_PATH, {
+      RStoken: "fake api token",
+      propertyIDs: "1337,42",
+      filterRules: "1337;JXBvdGF0byU=;LIKE",
+      extFilterRules: undefined,
+      filterJoining: "AND",
+    })).to.be.true;
   });
 });

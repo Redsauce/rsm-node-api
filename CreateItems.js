@@ -1,14 +1,14 @@
 const _ = require("lodash");
 
 const encode64 = require("./encode64");
-const RSM_Fetch = require("./fetch").fetch;
+const RSM_Fetch = require("./fetch");
 const RSM_ParseResponse = require("./parse_response");
 
 const RSM_CREATEITEMS_PATH = "/AppController/commands_RSM/api/api_createItem.php";
 
 function RSM_CreateItems(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(host, path, request).then(function (response) {
+    RSM_Fetch.fetch(host, path, request).then(function (response) {
       const result = RSM_ParseResponse({
         "itemID": "itemID",
         "result": "status"

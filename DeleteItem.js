@@ -1,13 +1,13 @@
 const _ = require("lodash");
 
-const RSM_Fetch = require("./fetch").fetch;
+const RSM_Fetch = require("./fetch");
 const RSM_ParseResponse = require("./parse_response");
 
 const RSM_DELETEITEM_PATH = "/AppController/commands_RSM/api/api_deleteItem.php";
 
 function RSM_DeleteItem(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(host, path, request).then(function (response) {
+    RSM_Fetch.fetch(host, path, request).then(function (response) {
       const result = RSM_ParseResponse({
         "result": "status"
       },response)[0];

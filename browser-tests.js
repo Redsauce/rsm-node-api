@@ -6,7 +6,8 @@ fs.mkdirSync("./browser", {recursive: true});
 fs.readdirSync(".")
     .filter((f) => f.endsWith(".test.js"))
     .forEach((file) => {
-        const stream = fs.createWriteStream(path.join("./browser/", file));
-        browserify(file).bundle().pipeTo(stream);
-        stream.close();
+        const target = path.join("./browser/", file);
+        const stream = fs.createWriteStream(target);
+        console.log(file, "=>", target);
+        browserify(file).bundle().pipe(stream);
     });

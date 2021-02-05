@@ -1,13 +1,13 @@
 const _ = require("lodash");
 
-const RSM_Fetch = require("./fetch").fetch;
+const RSM_Fetch = require("./fetch");
 const RSM_ParseResponse = require("./parse_response");
 
 const RSM_GETITEM_PATH = "/AppController/commands_RSM/api/api_getItem.php";
 
 function RSM_GetItem(host, path, request) {
   return new Promise(function (resolve, reject) {
-    RSM_Fetch(host, path, request).then(function (response) {
+    RSM_Fetch.fetch(host, path, request).then(function (response) {
       resolve(RSM_ParseResponse({}, response));
     }, function (error) {
       reject(error);
