@@ -10,13 +10,13 @@ For specific usage examples, please check out the `*.test.js` files.
 
 # Installation
 
-`yarn add git+https://github.com/Redsauce/rsm-node-api`
+`yarn add rsm-api`
 
 or 
 
-`npm install git+https://github.com/Redsauce/rsm-node-api`
+`npm install rsm-api`
 
-then you can import as `import RSM from "rsm-node-api"`
+then you can import as `import RSM from "rsm-api"`
 
 # API
 
