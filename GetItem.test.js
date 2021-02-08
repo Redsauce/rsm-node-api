@@ -26,7 +26,6 @@ describe("RSM GetItem", () => {
     const response = await getItem("fakeapi", RSM_HOST, "54").fetch("3");
 
     expect(response).to.deep.equal([{"1337": "Nice", "42": "wat"}]);
-    console.log(stub.lastCall);
     expect(stub.calledOnceWithExactly(RSM_HOST, RSM_GETITEM_PATH, {
       RStoken: "fakeapi",
       itemTypeID: "54",
