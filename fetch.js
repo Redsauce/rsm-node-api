@@ -1,7 +1,7 @@
 const axios = require("axios");
 const FormData = require("form-data");
 const {DOMParser} = require("xmldom");
-const {isBrowser, isNode} = require("browser-or-node");
+const {isNode} = require("browser-or-node");
 
 const RSM_DEFAULT_HOST = "https://rsm1.redsauce.net";
 
@@ -23,10 +23,9 @@ async function RSM_Fetch(host = RSM_DEFAULT_HOST, path, data) {
 function buildHeaders(form_data) {
   if (isNode) {
     return form_data.getHeaders();
-  } else if (isBrowser) {
+  } else {
     return {"content-type": "multipart/form-data"};
   }
-  throw new Error("Not Node or Browser");
 }
 
 module.exports = {fetch: RSM_Fetch};

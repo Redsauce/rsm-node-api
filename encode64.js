@@ -1,3 +1,5 @@
+const {Buffer} = require("buffer/");
+
 function btoa(str) {
   var buffer;
 
