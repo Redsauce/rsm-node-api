@@ -4,7 +4,6 @@ const GetItems = require("./GetItems");
 const GetItem = require("./GetItem");
 const GetPicture = require("./GetPicture");
 const UpdateItem = require("./UpdateItem");
-const fake = require("./fake");
 
 function RSM(api_token, host) {
   this.token = api_token;
@@ -19,6 +18,5 @@ function RSM(api_token, host) {
 
 module.exports = {
   RSM,
-  fake,
   default: RSM,
 }

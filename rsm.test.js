@@ -1,17 +1,25 @@
 const expect = require("chai").expect;
+const sinon = require("sinon");
+const {DOMParser} = require("xmldom");
+
+const fetch = require("./fetch");
 const {RSM} = require("./index");
-const fakersm = require("./fake").http_request;
+const fakersm = require("./fake").response;
 const testdata = require("./testdata/articles");
 
 describe("RSM", () => {
+
   let rsm;
-  beforeEach(() => {
-    rsm = new RSM("SOMEAPIKEY");
-  });
+  let sandbox = sinon.createSandbox();
+  beforeEach(() => { rsm = new RSM("SOMEAPIKEY"); });
+  afterEach(() => sandbox.restore());
 
   it("can fetch content", async () => {
     const testcase = testdata["article list"];
-    fakersm("getItems", 200, testcase["rsm"]);
+    sandbox.stub(fetch, "fetch")
+      .resolves(new DOMParser()
+        .parseFromString(
+          fakersm(testcase["rsm"])));
 
     const res = await rsm.getItems().properties({
       "Title": 1467,
@@ -29,7 +37,10 @@ describe("RSM", () => {
 
   it("can reuse a call", async () => {
     const testcase = testdata["article list"];
-    fakersm("getItems", 200, testcase["rsm"]);
+    sandbox.stub(fetch, "fetch")
+      .resolves(new DOMParser()
+        .parseFromString(
+          fakersm(testcase["rsm"])));
 
     const all_articles = await rsm.getItems().properties({
       "Title": 1467,
@@ -50,7 +61,10 @@ describe("RSM", () => {
 
   it("can take filters", async () => {
     const testcase = testdata["article list"];
-    fakersm("getItems", 200, testcase["rsm"]);
+    sandbox.stub(fetch, "fetch")
+      .resolves(new DOMParser()
+        .parseFromString(
+          fakersm(testcase["rsm"])));
 
     const all_articles = await rsm.getItems().properties({
       "Title": 1467,
