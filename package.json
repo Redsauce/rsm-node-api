@@ -33,6 +33,7 @@
     "sinon": "^9.2.4"
   },
   "scripts": {
+    "build": "browserify index.js > rsm.js",
     "lint": "eslint --ext .js .",
     "test": "mocha",
     "test:browser": "node browser-tests.js"
