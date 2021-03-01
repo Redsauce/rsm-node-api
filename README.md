@@ -1,4 +1,4 @@
-# RSM Node API
+# RSM API
 
 This API works by generating Objects with the request data, which are finally sent to RSM through an action (like `fetch()` or `delete()`).
 
@@ -8,7 +8,7 @@ The Parent Object, which you must always create to use this API is the RSM Objec
 
 For specific usage examples, please check out the `*.test.js` files.
 
-# Installation
+# Node Installation
 
 `yarn add rsm-api`
 
@@ -16,7 +16,17 @@ or
 
 `npm install rsm-api`
 
-then you can import as `import RSM from "rsm-api"`
+then you can import as `import RSM from "rsm-api"` or `const {RSM} = require("rsm-api")`
+
+# Browser Installation
+
+You will need to download the [rsm.js](rsm.js) file and include it in your project.
+
+To use it, you must include it in a script tag:
+
+`<script src="/rsm.js"></script>`
+
+and then, you can import it where needed as `const {RSM} = require("rsm")` (this require function is exported by a bundled [browserify](https://browserify.org) automatically).
 
 # API
 
