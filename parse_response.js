@@ -10,13 +10,17 @@ function buildObject(key_values) {
 function RSM_ParseResponse(property_names, response) {
   return Array.from(response.getElementsByTagName("row")).map(function (row) {
     const properties = Array.from(row.getElementsByTagName("column")).map(function (column) {
+      let value = "";
+      if (0 in column.childNodes) {
+        value = column.childNodes[0].data;
+      }
       if (column.getAttribute("name") === "ID") {
-        return ["ID", column.childNodes[0].data]
+        return ["ID", value]
       } else {
         if (column.getAttribute("name") in property_names) {
-          return [property_names[column.getAttribute("name")], column.childNodes[0].data]
+          return [property_names[column.getAttribute("name")], value]
         } else if (Object.keys(property_names).length === 0) {
-          return [column.getAttribute("name"), column.childNodes[0].data]
+          return [column.getAttribute("name"), value]
         } else {
           return null
         }
