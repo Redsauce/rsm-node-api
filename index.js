@@ -1,5 +1,6 @@
 const CreateItems = require("./CreateItems");
 const DeleteItem = require("./DeleteItem");
+const GetFile = require("./GetFile");
 const GetItems = require("./GetItems");
 const GetItem = require("./GetItem");
 const GetPicture = require("./GetPicture");
