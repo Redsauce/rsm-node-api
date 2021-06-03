@@ -62,6 +62,14 @@ The function returns a Promise, which is resolved with an "OK" message if succes
 
 In case of any errors, the Promise is rejected and a "NOK" message.
 
+### rsm.getFile(id, propertyID)
+
+Sends a request to the host located in the created `rsm` Object to the special getFile endpoint.
+
+The function returns a Promise, which is resolved to a stream containing the file in the given property with the given id.
+
+In case of any errors, the Promise is rejected.
+
 ### rsm.getItems()
 
 Returns an RSM Object ready to send a GetItems request, on which `properties`, `filters` and `extFilters` can be called in any order and `fetch` sends the request to the server.

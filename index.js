@@ -10,6 +10,7 @@ function RSM(api_token, host) {
   this.host = host;
   this.createItems = () => CreateItems(this.token, this.host);
   this.deleteItem = (type) => DeleteItem(this.token, this.host, type);
+  this.getFile = (id, propertyID) => GetFile(this.token, this.host, id, propertyID);
   this.getItems = () => GetItems(this.token, this.host);
   this.getItem = (type) => GetItem(this.token, this.host, type);
   this.getPicture = (id) => GetPicture(this.token, this.host, id);
