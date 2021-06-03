@@ -14,6 +14,11 @@ describe("RSM", () => {
   beforeEach(() => { rsm = new RSM("SOMEAPIKEY"); });
   afterEach(() => sandbox.restore());
 
+  it("has all the endpoints", async () => {
+    expect(Object.keys(rsm)).to.have.members([
+      "token", "host", "createItems", "deleteItem", "getFile", "getItems", "getItem", "getPicture", "updateItem"
+    ]);
+  });
   it("can fetch content", async () => {
     const testcase = testdata["article list"];
     sandbox.stub(fetch, "fetch")
