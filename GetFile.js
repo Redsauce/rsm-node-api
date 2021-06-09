@@ -1,6 +1,6 @@
-const axios = require("axios");
+const request = require("./request");
 
-module.exports = (token, host = "https://rsm1.redsauce.net", id, propertyID) =>
-  axios.get(`${host}/AppController/commands_RSM/api/api_getFile.php?RStoken=${token}&itemID=${id}&propertyID=${propertyID}`,{
-  responseType: 'stream',
-});
+module.exports = async (token, host = "https://rsm1.redsauce.net", id, propertyID) => {
+  const response = await request.fetch(`${host}/AppController/commands_RSM/api/api_getFile.php?RStoken=${token}&itemID=${id}&propertyID=${propertyID}`);
+  return response.blob();
+}

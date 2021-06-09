@@ -1,4 +1,4 @@
-const axios = require("axios");
+const request = require("./request");
 const FormData = require("form-data");
 const {DOMParser} = require("xmldom");
 const {isNode} = require("browser-or-node");
@@ -12,10 +12,13 @@ async function RSM_Fetch(host = RSM_DEFAULT_HOST, path, data) {
       form_data.append(entry, value);
     }
   });
-  const response = await axios.post(host + path, form_data, {
+  const response = await request.fetch(host + path, {
+    method: "POST",
+    body: form_data,
     headers: buildHeaders(form_data),
   });
-  const XML = response.data.replace(RegExp("<br>","g"), "\n");
+  const textdata = await response.text();
+  const XML = textdata.replace(RegExp("<br>","g"), "\n");
   const dom = new DOMParser().parseFromString(XML);
   return dom;
 }

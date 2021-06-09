@@ -1,6 +1,6 @@
 const sinon = require("sinon");
 const expect = require("chai").expect;
-const axios = require("axios");
+const request = require("./request");
 const FormData = require("form-data");
 const {isNode, isBrowser} = require("browser-or-node");
 
@@ -33,8 +33,8 @@ describe("RSM Fetch", () => {
   afterEach(() => sandbox.restore());
 
   it("should send correct request", async () => {
-    const stub = sandbox.stub(axios, "post")
-      .resolves({data: fakersm([])});
+    const stub = sandbox.stub(request, "fetch")
+      .resolves({text: () => fakersm([])});
     const formdata = new FormData();
     formdata.append("Test", "Albert");
     formdata.append("Data", "Einstein");
@@ -42,15 +42,17 @@ describe("RSM Fetch", () => {
     await fetch(RSM_HOST, "/target", {"Test": "Albert", "Data": "Einstein"});
 
     expect(stub.calledOnceWithExactly(RSM_HOST + "/target",
-      sinon.match((data) => compareStreams(data, formdata)),
-      sinon.match({headers: sinon.match({"content-type": sinon.match("multipart/form-data")})})
+      sinon.match({
+        headers: sinon.match({"content-type": sinon.match("multipart/form-data")}),
+        body: sinon.match((data) => compareStreams(data, formdata)),
+      })
     )).to.be.true;
   });
 
 
   it("should parse a DOM removing <br> tags", async () => {
-    const stub = sandbox.stub(axios, "post")
-      .resolves({data: "<p id='main'>Hi, I'm<br>Tuna Man</p>"});
+    const stub = sandbox.stub(request, "fetch")
+      .resolves({text: () => "<p id='main'>Hi, I'm<br>Tuna Man</p>"});
 
     const res = await fetch(RSM_HOST, "/whatever", {});
     expect(res.getElementById("main").textContent)
