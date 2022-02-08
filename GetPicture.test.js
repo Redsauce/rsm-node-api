@@ -1,5 +1,8 @@
 const sinon = require("sinon");
-const expect = require("chai").expect;
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
+const expect = chai.expect;
 const request = require("./request");
 const GetPicture = require("./GetPicture");
 const { Blob } = require('buffer');
@@ -25,10 +28,19 @@ describe("GetPicture", () => {
 
   it("should return a stream", async () => {
     const stub = sandbox.stub(request, "fetch")
-      .resolves({blob: () => superFakeBlob()});
+      .resolves({ok: true, blob: () => superFakeBlob()});
 
     const res = await GetPicture("token", "https://notarealwebsite", "1337");
     expect(res).to.be.an.instanceOf(stream);
+
+  });
+
+  it("should error", async () => {
+    const stub = sandbox.stub(request, "fetch")
+      .resolves({ok: false, blob: () => superFakeBlob()});
+
+    return expect(GetPicture("token", "https://notarealwebsite", "1337"))
+      .to.be.rejected;
 
   });
 });
