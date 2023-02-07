@@ -35,6 +35,7 @@ describe("RSM GetItems", () => {
     expect(stub.calledOnceWithExactly(RSM_HOST, RSM_GETITEMS_PATH, {
       RStoken: "fake api token",
       propertyIDs: "1337,42",
+      IDs: undefined,
       filterRules: "1337;JXBvdGF0byU=;LIKE",
       extFilterRules: undefined,
       filterJoining: "AND",

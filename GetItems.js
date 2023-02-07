@@ -36,6 +36,7 @@ function RSM_GetItemsBuilder(api_token, host) {
     request: {
       RStoken: api_token,
       properties: undefined,
+      ids: undefined,
       filters: undefined,
       filterJoining: "AND",
       extfilters: undefined,
@@ -45,6 +46,11 @@ function RSM_GetItemsBuilder(api_token, host) {
     properties: function (props) {
       let new_request = _.cloneDeep(this);
       new_request.request.properties = props;
+      return new_request;
+    },
+    ids: function (ids) {
+      let new_request = _.cloneDeep(this);
+      new_request.request.ids = ids;
       return new_request;
     },
     filters: function (new_filters, join_mode) {
@@ -65,6 +71,7 @@ function RSM_GetItemsBuilder(api_token, host) {
       const request = {
         RStoken: this.request.RStoken,
         propertyIDs: formatProperties(this.request.properties),
+        IDs: this.request.ids,
         filterRules: RSM_Encode_Filters(this.request.filters),
         extFilterRules: RSM_Encode_Filters(this.request.extfilters),
       }
